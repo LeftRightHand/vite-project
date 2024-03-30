@@ -8,4 +8,10 @@
 
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+div {
+    h1 {
+        color: $base-color;
+    }
+}
+</style>

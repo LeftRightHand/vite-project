@@ -14,4 +14,6 @@ app.use(ElementPlus, {
 
 import 'virtual:svg-icons-register'
 
+import '@/styles/index.scss'
+
 app.mount("#app");
