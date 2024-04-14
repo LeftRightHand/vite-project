@@ -6,12 +6,16 @@
                 <el-form class="login_form">
                     <h1>Hello</h1>
                     <h2>欢迎您的到来</h2>
-                    <el-from-item>
-                        <el-input></el-input>
-                    </el-from-item>
-                    <el-from-item>
-                        <el-input></el-input>
-                    </el-from-item>
+                    <el-form-item prop="username">
+                        <el-input :prefix-icon="User" v-model="loginForm.username"></el-input>
+                    </el-form-item>
+                    <el-form-item prop="password">
+                        <el-input :prefix-icon="Lock" v-model="loginForm.password" type="password"
+                            show-password></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button class="login_btn" type="primary" size="default" @click="login">登录</el-button>
+                    </el-form-item>
                 </el-form>
             </el-col>
         </el-row>
@@ -19,6 +23,35 @@
 </template>
 
 <script setup lang="ts">
+import { User, Lock } from '@element-plus/icons-vue';
+import { reactive } from 'vue';
+
+import useUserStore from "@/store/modules/user"
+import { useRouter } from 'vue-router';
+import { ElNotification } from 'element-plus';
+
+let userStore = useUserStore();
+
+let $router = useRouter();
+
+// let loginForms = ref();
+let loginForm = reactive({ username: 'admin', password: '111111' });
+
+const login = async () => {
+    try {
+       await userStore.userLogin(loginForm);
+       $router.push({path: '/'})
+       ElNotification({
+            type: 'success',
+            message: '欢迎回来'
+       })
+    } catch (error) {
+        ElNotification({
+            type: 'error',
+            message: (error as Error).message
+        })
+    }
+}
 
 </script>
 
@@ -36,6 +69,21 @@
         background: url('@/assets/images/login_form.png') no-repeat;
         background-size: cover;
         padding: 40px;
+
+        h1 {
+            color: white;
+            font-size: 40px;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: white;
+            margin: 20px 0px;
+        }
+
+        .login_btn {
+            width: 100%;
+        }
     }
 }
 </style>

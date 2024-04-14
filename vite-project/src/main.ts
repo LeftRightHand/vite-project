@@ -11,12 +11,15 @@ import '@/styles/index.scss'
 
 import router from './router'
 
+import pinia from "./store";
+
 const app = createApp(App)
 app.use(ElementPlus);
 app.use(ElementPlus, {
     locale: zhCn
 });
 
+app.use(pinia)
 app.use(router)
 
 app.mount("#app");
