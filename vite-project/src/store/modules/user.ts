@@ -1,4 +1,4 @@
-import { loginFormData } from '@/api/type'
+import { loginFormData, loginResponseData } from '@/api/type'
 import { requestLogin } from '@/api/user'
 import { GET_TOKEN, SET_TOKEN } from '@/utils/token'
 import { defineStore } from 'pinia'
@@ -11,7 +11,7 @@ const useUserStore = defineStore('User', {
     },
     actions: {
         async userLogin(data: loginFormData) {
-            let result = await requestLogin(data)
+            let result: loginResponseData = await requestLogin(data)
             if (result.code == 200) {
                 this.token = result.data.tolen
                 console.log(result)
