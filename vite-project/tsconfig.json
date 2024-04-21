@@ -17,10 +17,10 @@
     "noEmit": true,
     "jsx": "preserve",
     /* Linting */
-    "strict": true,
+    "strict": true,// 开启严格模式，检查类型声明和赋值...是否合法
     "noUnusedLocals": false,/* 检查未使用的变量 */
     "noUnusedParameters": false,/* 检查未使用的函数参数 */
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": false,// 检查switch语句中是否存在break
     "types": [
       "element-plus/global"
     ],

@@ -77,7 +77,7 @@ const validatorPassword = (rule: any, value: any, callback: any) => {
         callback(new Error('请输入你的密码'))
     }
 }
-
+//表单
 const rules = {
     username: [
         { trigger: 'change', validator: validatorUsername }
