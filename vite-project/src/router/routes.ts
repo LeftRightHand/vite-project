@@ -22,7 +22,7 @@ export const constantRoute = [
     },
     {
         path: '/other',
-        component: () => import('@/views/404/index.vue'),
+        component: () => import('@/layout/index.vue'),
         meta: {
             title: '其他',
             icon: 'HomeFilled'
@@ -67,22 +67,33 @@ export const constantRoute = [
         ]
     },
     {
-        path: '/dashboard',
-        component: () => import('@/views/404/index.vue'),
-        name: 'dashboard',
+        path: '/acl',
+        component: () => import('@/layout/index.vue'),
+        name: 'Acl',
         meta: {
-            title: ''
+            title: '权限管理',
+            icon: 'Lock',
+            hidden: false
         },
         children:[
             {
-              path: '/dashboard',
-              component: () => import('@/views/home/index.vue'),
-              name: '系统首页',
+              path: '/acl/user',
+              component: () => import('@/views/acl/user/index.vue'),
+              name: 'Acl',
               meta: {
-                  title: '系统首页',
+                  title: '用户管理',
                   icon: 'HomeFilled'
               }
-            }
+            },
+            {
+                path: '/acl/role',
+                component: () => import('@/views/acl/role/index.vue'),
+                name: 'Role',
+                meta: {
+                    title: '用户管理',
+                    icon: 'User'
+                }
+              },
         ]
     }
 ]

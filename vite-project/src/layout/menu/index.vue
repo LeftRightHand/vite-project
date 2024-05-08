@@ -1,7 +1,7 @@
 <template>
     <template v-for="(item, index) in menuList" :key="item.path">
         <template v-if="!item.children">
-            <el-menu-item :index="item.path" v-if="!item.meta.hidden" @click="onTouth">
+            <el-menu-item :index="item.path" v-if="!item.meta.hidden" @click="goRouter">
                 <el-icon>
                     <component :is="item.meta.icon"></component>
                 </el-icon>
@@ -11,7 +11,7 @@
             </el-menu-item>
         </template>
         <template v-if="item.children && item.children.length == 1">
-            <el-menu-item :index="item.children[0].path" v-if="!item.meta.hidden">
+            <el-menu-item :index="item.children[0].path" v-if="!item.meta.hidden" @click="goRouter">
                 <el-icon>
                     <component :is="item.children[0].meta.icon"></component>
                 </el-icon>
@@ -35,9 +35,14 @@
 </template>
 
 <script setup lang="ts">
-defineProps(['menuList'])
-const onTouth = () => {
 
+import { useRouter } from 'vue-router';
+
+defineProps(['menuList']);
+
+const $router = useRouter();
+const goRouter = (vc: any) => {
+    $router.push(vc.index)
 }
 </script>
 

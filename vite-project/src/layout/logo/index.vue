@@ -8,7 +8,11 @@
 <script setup lang="ts">
 
 </script>
-
+<script lang="ts">
+export default {
+    name: 'Logo'
+}
+</script>
 <style scoped lang="scss">
 .logo {
     width: 100%;

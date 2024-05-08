@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>首页</p>
+        <p>用户管理</p>
     </div>
 </template>
 
@@ -8,6 +8,4 @@
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
