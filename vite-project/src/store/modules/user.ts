@@ -3,10 +3,13 @@ import { requestLogin } from '@/api/user'
 import { GET_TOKEN, SET_TOKEN } from '@/utils/token'
 import { defineStore } from 'pinia'
 
+import { constantRoute } from '@/router/routes'
+
 const useUserStore = defineStore('User', {
     state: () => {
         return {
             token: GET_TOKEN(),
+            menuRoutes: constantRoute,//路由器的数组
         }
     },
     actions: {

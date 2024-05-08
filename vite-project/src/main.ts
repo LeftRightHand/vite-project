@@ -13,12 +13,14 @@ import router from './router'
 
 import pinia from "./store";
 
+import components from "./components";
+
 const app = createApp(App)
 app.use(ElementPlus);
 app.use(ElementPlus, {
     locale: zhCn
 });
-
+app.use(components)
 app.use(pinia)
 app.use(router)
 

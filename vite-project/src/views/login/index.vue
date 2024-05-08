@@ -7,14 +7,15 @@
                     <h1>Hello</h1>
                     <h2>欢迎您的到来</h2>
                     <el-form-item prop="username">
-                        <el-input :prefix-icon="User" v-model="loginForm.username"></el-input>
+                        <el-input :prefix-icon="User" v-model="loginForm.username" placeholder="username"></el-input>
                     </el-form-item>
                     <el-form-item prop="password">
                         <el-input :prefix-icon="Lock" v-model="loginForm.password" type="password"
-                            show-password></el-input>
+                            placeholder="password" show-password></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button :loading="loading" class="login_btn" type="primary" size="default" @click="login">登录</el-button>
+                        <el-button :loading="loading" class="login_btn" type="primary" size="default"
+                            @click="login">登录</el-button>
                     </el-form-item>
                 </el-form>
             </el-col>
@@ -45,14 +46,14 @@ const login = async () => {
     await loginForms.value.validate();
     loading.value = true;
     try {
-       await userStore.userLogin(loginForm);
-       $router.push({path: '/'})
-       ElNotification({
+        await userStore.userLogin(loginForm);
+        $router.push({ path: '/' })
+        ElNotification({
             type: 'success',
             message: '欢迎回来',
             title: `Hi,${getTime()}好`
-       })
-       loading.value = false;
+        })
+        loading.value = false;
     } catch (error) {
         loading.value = false;
         ElNotification({
@@ -62,7 +63,7 @@ const login = async () => {
     }
 }
 
-const validatorUsername = (rule: any, value: any, callback: any) => {
+const validatorUsername = (_rule: any, value: any, callback: any) => {
     if (value.length > 0) {
         callback();
     } else {
@@ -70,7 +71,7 @@ const validatorUsername = (rule: any, value: any, callback: any) => {
     }
 }
 
-const validatorPassword = (rule: any, value: any, callback: any) => {
+const validatorPassword = (_rule: any, value: any, callback: any) => {
     if (value.length > 0) {
         callback();
     } else {
