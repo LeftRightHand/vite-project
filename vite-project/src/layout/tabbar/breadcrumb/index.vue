@@ -22,9 +22,6 @@ const fold = ref(false);
 const changeIcon = () => {
     layoutSettingStore.fold = !layoutSettingStore.fold
 }
-const handler = () => {
-    console.log($route)
-}
 </script>
 <script lang="ts">
 export default {

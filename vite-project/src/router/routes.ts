@@ -1,4 +1,4 @@
-import { tr } from 'element-plus/es/locales.mjs';
+import { fa, tr } from 'element-plus/es/locales.mjs';
 
 export const constantRoute = [
     {
@@ -12,12 +12,13 @@ export const constantRoute = [
         }
     },
     {
-        path: '/',
-        component: () => import('@/layout/index.vue'),
-        name: 'layout',
+        path: '/home',
+        component: () => import('@/views/home/index.vue'),
+        name: 'home',
         meta: {
-            title: 'layout',
-            hidden: true
+            title: '首页',
+            hidden: false,
+            icon: 'HomeFilled'
         }
     },
     {

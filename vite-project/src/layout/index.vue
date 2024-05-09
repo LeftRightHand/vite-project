@@ -4,7 +4,7 @@
             <Logo></Logo>
             <el-scrollbar class="scrollbar">
                 <el-menu :collapse="layoutSettingStore.fold ? true : false" :default-active="$route.path"
-                    background-color="001529" text-color="white">
+                    background-color="#001529" text-color="white">
                     <Menu :menuList="userStore.menuRoutes"></Menu>
                 </el-menu>
             </el-scrollbar>
@@ -50,7 +50,6 @@ export default {
     height: 100vh;
 
     .layout_slider {
-        color: white;
         width: $base-menu-width;
         height: 100vh;
         background: $base-menu-background;
@@ -79,7 +78,7 @@ export default {
         transition: all 0.3s;
 
         &.fold {
-            width: calc(100vh - $base-menu-min-width);
+            width: calc(100% - $base-menu-min-width);
             left: $base-menu-min-width;
         }
     }
@@ -91,12 +90,11 @@ export default {
         left: $base-menu-width;
         top: $base-tabbar-height;
         overflow: auto;
-        background-color: white;
         padding: 20px;
         transition: all 0.3s;
 
         &.fold {
-            width: calc(100vh - $base-menu-min-width);
+            width: calc(100% - $base-menu-min-width);
             left: $base-menu-min-width;
         }
     }
