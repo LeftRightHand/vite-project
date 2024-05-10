@@ -12,20 +12,27 @@ export const constantRoute = [
         }
     },
     {
-        path: '/home',
-        component: () => import('@/views/home/index.vue'),
-        name: 'home',
-        meta: {
-            title: '首页',
-            hidden: false,
-            icon: 'HomeFilled'
-        }
+        path: '/',
+        component: () => import('@/layout/index.vue'),
+        name: 'layout',
+        children: [
+            {
+                path: '/',
+                component: () => import('@/views/home/index.vue'),
+                name: 'home',
+                meta: {
+                    title: '首页',
+                    icon: 'HomeFilled',
+                    hidden: false,
+                }
+            }
+        ]
     },
     {
         path: '/other',
         component: () => import('@/layout/index.vue'),
         meta: {
-            title: '其他',
+            title: '文章管理',
             icon: 'HomeFilled'
         },
         children: [
@@ -35,7 +42,7 @@ export const constantRoute = [
                 name: '文章发布',
                 meta: {
                     title: '文章发布',
-                    icon: 'HomeFilled'
+                    icon: 'Comment'
                 }
             },
             {
@@ -44,7 +51,7 @@ export const constantRoute = [
                 name: '富文本',
                 meta: {
                     title: '富文本',
-                    icon: 'HomeFilled'
+                    icon: 'Edit'
                 }
             },
             {
@@ -53,7 +60,7 @@ export const constantRoute = [
                 name: '文章分类',
                 meta: {
                     title: '文章分类',
-                    icon: 'HomeFilled'
+                    icon: 'Bell'
                 }
             },
             {
@@ -62,7 +69,7 @@ export const constantRoute = [
                 name: '文章列表',
                 meta: {
                     title: '文章列表',
-                    icon: 'HomeFilled'
+                    icon: 'More'
                 }
             }
         ]

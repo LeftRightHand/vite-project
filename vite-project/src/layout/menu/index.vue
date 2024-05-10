@@ -11,7 +11,7 @@
             </el-menu-item>
         </template>
         <template v-if="item.children && item.children.length == 1">
-            <el-menu-item :index="item.children[0].path" v-if="!item.meta.hidden" @click="goRouter">
+            <el-menu-item :index="item.children[0].path" v-if="!item.children[0].meta.hidden" @click="goRouter">
                 <el-icon>
                     <component :is="item.children[0].meta.icon"></component>
                 </el-icon>
@@ -52,6 +52,4 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

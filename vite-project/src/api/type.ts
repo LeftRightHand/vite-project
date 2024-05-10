@@ -18,9 +18,9 @@ interface userInfo {
     username: string,
     password: string,
     desc: string,
-    roles: [],
-    buttons: [],
-    routes: [],
+    roles: string[],
+    buttons: string[],
+    routes: string[],
     token: string,
 }
 

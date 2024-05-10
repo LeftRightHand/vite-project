@@ -28,11 +28,13 @@ import { User, Lock } from '@element-plus/icons-vue';
 import { reactive, ref } from 'vue';
 
 import useUserStore from "@/store/modules/user"
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { ElNotification } from 'element-plus';
 import { getTime } from '@/utils/time'
 
 let userStore = useUserStore();
+
+let $route = useRoute();
 
 let $router = useRouter();
 
@@ -47,7 +49,9 @@ const login = async () => {
     loading.value = true;
     try {
         await userStore.userLogin(loginForm);
-        $router.push({ path: '/' })
+        //获取路由中的query，没有跳转首页
+        let redirect: any = $route.query.redirect;
+        $router.push({ path: redirect || '/' })
         ElNotification({
             type: 'success',
             message: '欢迎回来',

@@ -1,6 +1,6 @@
 import { loginFormData, loginResponseData } from '@/api/type'
 import { requestLogin, requestUserInfo } from '@/api/user'
-import { GET_TOKEN, SET_TOKEN } from '@/utils/token'
+import { GET_TOKEN, SET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 import { defineStore } from 'pinia'
 
 import { constantRoute } from '@/router/routes'
@@ -32,6 +32,12 @@ const useUserStore = defineStore('User', {
                 this.username = result.data.checkUser.username
                 this.avatar = result.data.checkUser.avatar
             }
+        },
+        userLogout() {
+            this.token = '';
+            this.username = '';
+            this.avatar = '';
+            REMOVE_TOKEN();
         }
     },
     getters: {
