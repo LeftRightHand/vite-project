@@ -2,13 +2,20 @@ import request from '@/utils/request';
 import { loginFormData, loginResponseData, userResponseData } from '../type';
 
 enum API {
-    LOING_URL = "/user/login/",
-    USERINFO_URL = "/user/info"
-}
-//登录
+
+    LOGIN_URL = '/admin/acl/index/login',
+   
+    USERINFO_URL = '/admin/acl/index/info',
+   
+    LOGOUT_URL = '/admin/acl/index/logout',
+   
+   }
+//登录接口
 export const requestLogin = (data: loginFormData) =>
-     request.post<any, loginResponseData>(API.LOING_URL, data);
-//用户信息
+     request.post<any, loginResponseData>(API.LOGIN_URL, data);
+//获取用户信息
 export const requestUserInfo = () => 
     request.get<any, userResponseData>(API.USERINFO_URL);
+//退出登录
+export const requestLogout = () => request.post<any, any>(API.LOGOUT_URL)
 

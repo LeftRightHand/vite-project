@@ -18,22 +18,22 @@ const useUserStore = defineStore('User', {
         async userLogin(data: loginFormData) {
             let result: loginResponseData = await requestLogin(data)
             if (result.code == 200) {
-                this.token = result.data.token
+                this.token = result.data
                 console.log(result)
-                SET_TOKEN(result.data.token)
+                SET_TOKEN(result.data)
                 return 'ok'
             } else {
-                return Promise.reject(new Error(result.data.token))
+                return Promise.reject(new Error(result.message))
             }
         },
         async userInfo() {
             let result = await requestUserInfo();
             if (result.code = 200) {
-                this.username = result.data.checkUser.username
-                this.avatar = result.data.checkUser.avatar
+                this.username = result.data.name
+                this.avatar = result.data.avatar
                 return 'ok'
             } else {
-                return Promise.reject(new Error())
+                return Promise.reject(new Error(result.message))
             }
         },
         userLogout() {
