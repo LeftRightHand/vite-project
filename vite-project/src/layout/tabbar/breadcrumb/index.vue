@@ -1,9 +1,9 @@
 <template>
-    <el-icon style="margin-right: 20px;" @click="changeIcon">
+    <el-icon style="margin-right: 10px;" @click="changeIcon">
         <component :is="layoutSettingStore.fold ? 'Fold' : 'Expand'"></component>
     </el-icon>
     <el-breadcrumb separator-icon="ArrowRight">
-        <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="index">
+        <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="index" v-show="item.meta.title" :to="item.path">
             <el-icon style="margin-right: 10px;">
                 <component :is="item.meta.icon"></component>
             </el-icon>
