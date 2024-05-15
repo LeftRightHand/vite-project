@@ -12,7 +12,7 @@ let userStore = useUserStore(pinia);
 let username = userStore.username;
 //全局前置守卫
 router.beforeEach(async (to: any, from: any, next: any) => {
-    document.title = `${ setting.title } - ${ to.meta.title }`
+    document.title = `${setting.title} - ${to.meta.title}`
     NProgress.start();
     let token = userStore.token;
     if (token) {
@@ -28,7 +28,7 @@ router.beforeEach(async (to: any, from: any, next: any) => {
                     await userStore.userInfo()
                     next()
                 } catch (error) {
-                    userStore.userLogout()
+                    await userStore.userLogout()
                     next({ path: '/login', query: { redirect: to.path } })
                 }
             }

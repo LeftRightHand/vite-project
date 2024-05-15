@@ -1,5 +1,5 @@
 import { loginFormData, loginResponseData } from '@/api/type'
-import { requestLogin, requestUserInfo } from '@/api/user'
+import { requestLogin, requestLogout, requestUserInfo } from '@/api/user'
 import { GET_TOKEN, SET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 import { defineStore } from 'pinia'
 
@@ -36,11 +36,17 @@ const useUserStore = defineStore('User', {
                 return Promise.reject(new Error(result.message))
             }
         },
-        userLogout() {
-            this.token = '';
-            this.username = '';
-            this.avatar = '';
-            REMOVE_TOKEN();
+        async userLogout() {
+            let result = await requestLogout();
+            if (result.code == 200) {
+                this.token = '';
+                this.username = '';
+                this.avatar = '';
+                REMOVE_TOKEN();
+                return 'ok'
+            } else {
+                return Promise.reject(new Error(result.message));
+            }
         }
     },
     getters: {
