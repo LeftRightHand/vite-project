@@ -17,6 +17,8 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <el-pagination @size-change="" @current-change="" :page-count="9" v-model:current-page="currentPage" v-model:page-size="limit" :page-sizes="[3, 5, 7, 9]" :background="true" layout="prev, pager, next, jumper,->,sizes,total" :total="total">
+            </el-pagination>
         </el-card>
     </div>
 </template>
@@ -30,11 +32,14 @@ let currentPage = ref<number>(1);
 //每一页多少条
 let limit = ref<number>(3);
 
+let total = ref<number>(0);
+
 let trademarkArray = ref<Records>([]);
 
 const getHasTrademark = async () => {
     let result = await requestHasTrademark(currentPage.value, limit.value);
     if (result.code == 200) {
+        total.value = result.data.total
         trademarkArray.value = result.data.records;
     }
 }
