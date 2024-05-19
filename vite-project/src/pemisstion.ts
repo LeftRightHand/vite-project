@@ -1,4 +1,5 @@
 import router from "@/router";
+//@ts-ignore
 import NProgress from 'nprogress';
 import "nprogress/nprogress.css";
 //全局前置守卫

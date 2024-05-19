@@ -1,6 +1,6 @@
 <template>
     <div class="layout_container">
-        <div class="layout_slider" :class="{ fold: layoutSettingStore.fold ? true : false }">
+        <div class="layout_slider">
             <Logo></Logo>
             <el-scrollbar class="scrollbar">
                 <el-menu :collapse="layoutSettingStore.fold ? true : false" :default-active="$route.path"
@@ -64,9 +64,9 @@ export default {
             }
         }
 
-        &.fold {
-            width: $base-menu-min-width;
-        }
+        // &.fold {
+        //     width: $base-menu-min-width;
+        // }
     }
 
     .layout_tabbar {
@@ -76,14 +76,14 @@ export default {
         left: $base-menu-width;
         top: 0px;
         transition: all 0.3s;
-
         &.fold {
-            width: calc(100% - $base-menu-min-width);
+            width: calc(100vw - $base-menu-min-width);
             left: $base-menu-min-width;
         }
     }
 
     .layout_main {
+        background: white;
         position: absolute;
         width: calc(100% - $base-menu-width);
         height: calc(100vh - $base-tabbar-height);
@@ -92,9 +92,8 @@ export default {
         overflow: auto;
         padding: 20px;
         transition: all 0.3s;
-
         &.fold {
-            width: calc(100% - $base-menu-min-width);
+            width: calc(100vw - $base-menu-min-width);
             left: $base-menu-min-width;
         }
     }
