@@ -21,16 +21,16 @@ watch(() => layoutSettingStore.refresh, () => {
 </script>
 
 <style scoped>
-.fade-enter-active {
+.fade-enter-active{
   transition: all 0.5s;
 }
 
-.fade-enter-from {
+.fade-enter-from{
   opacity: 0;
   transform: scale(0);
 }
 
-.fade-enter-to {
+.fade-enter-to{
   opacity: 1;
   transform: scale(1);
 }

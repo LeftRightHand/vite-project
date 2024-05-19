@@ -63,19 +63,17 @@ export default {
                 border-right: none;
             }
         }
-
-        // &.fold {
-        //     width: $base-menu-min-width;
-        // }
     }
 
     .layout_tabbar {
+        background: white;
         position: fixed;
         width: calc(100% - $base-menu-width);
         height: $base-tabbar-height;
         left: $base-menu-width;
         top: 0px;
         transition: all 0.3s;
+
         &.fold {
             width: calc(100vw - $base-menu-min-width);
             left: $base-menu-min-width;
@@ -92,6 +90,7 @@ export default {
         overflow: auto;
         padding: 20px;
         transition: all 0.3s;
+
         &.fold {
             width: calc(100vw - $base-menu-min-width);
             left: $base-menu-min-width;
