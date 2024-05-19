@@ -18,7 +18,6 @@ import components from "./components";
 import './pemisstion';
 
 const app = createApp(App)
-app.use(ElementPlus);
 app.use(ElementPlus, {
     locale: zhCn
 });
