@@ -28,10 +28,9 @@
                     <el-input placeholder="请输入品牌名称"></el-input>
                 </el-form-item>
                 <el-form-item label="品牌图标">
-                    <el-upload class="avatar-uploader"
-                        action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15" :show-file-list="false"
+                    <el-upload class="avatar-uploader" action="/api/admin/product/fileUpload" :show-file-list="false"
                         :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-                        <img v-if="" :src="" class="avatar" />
+                        <img v-if="trademarkParams.loginUrl" :src="trademarkParams.loginUrl" class="avatar" />
                         <el-icon v-else class="avatar-uploader-icon">
                             <Plus />
                         </el-icon>
@@ -50,8 +49,8 @@
 <script setup lang="ts">
 import { UploadProps } from 'element-plus';
 import { requestHasTrademark } from '@/api/product/trademark';
-import { Records } from '@/api/product/trademark/type';
-import { onMounted, ref } from 'vue';
+import { Records, TradeMark } from '@/api/product/trademark/type';
+import { onMounted, reactive, ref } from 'vue';
 //当前页码
 let currentPage = ref<number>(1);
 //每一页多少条
@@ -62,6 +61,11 @@ let total = ref<number>(0);
 let dialogVisible = ref<boolean>(false)
 
 let trademarkArray = ref<Records>([]);
+
+let trademarkParams = reactive<TradeMark>({
+    tmName: '',
+    loginUrl: ''
+})
 
 const getHasTrademark = async (pager = 1) => {
     currentPage.value = pager
