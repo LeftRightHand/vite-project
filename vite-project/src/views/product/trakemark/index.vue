@@ -23,11 +23,11 @@
             </el-pagination>
         </el-card>
         <el-dialog v-model="dialogVisible" title="添加品牌">
-            <el-form>
-                <el-form-item label="品牌名称">
-                    <el-input placeholder="请输入品牌名称"></el-input>
+            <el-form :model="trademarkParams" :rules="rules" ref="formRef">
+                <el-form-item label="品牌名称" prop="tmName">
+                    <el-input placeholder="请输入品牌名称" v-model="trademarkParams.tmName"></el-input>
                 </el-form-item>
-                <el-form-item label="品牌图标">
+                <el-form-item label="品牌图标" prop="logoUrl">
                     <el-upload class="avatar-uploader" action="/api/admin/product/fileUpload" :show-file-list="false"
                         :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                         <img v-if="trademarkParams.loginUrl" :src="trademarkParams.loginUrl" class="avatar" />
@@ -35,19 +35,18 @@
                             <Plus />
                         </el-icon>
                     </el-upload>
-
                 </el-form-item>
             </el-form>
             <template #footer>
-                <el-button type="primary">取消</el-button>
-                <el-button type="primary">确定</el-button>
+                <el-button type="primary" @click="cancel">取消</el-button>
+                <el-button type="primary" @click="confirm">确定</el-button>
             </template>
         </el-dialog>
     </div>
 </template>
 
 <script setup lang="ts">
-import { UploadProps } from 'element-plus';
+import { UploadProps, ElMessage } from 'element-plus';
 import { requestHasTrademark } from '@/api/product/trademark';
 import { Records, TradeMark } from '@/api/product/trademark/type';
 import { onMounted, reactive, ref } from 'vue';
@@ -66,6 +65,16 @@ let trademarkParams = reactive<TradeMark>({
     tmName: '',
     loginUrl: ''
 })
+
+let formRef = ref();
+
+const cancel = () => {
+    dialogVisible.value = false;
+}
+
+const confirm = () => {
+    
+}
 
 const getHasTrademark = async (pager = 1) => {
     currentPage.value = pager
@@ -86,24 +95,61 @@ const addTrademark = () => {
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
     if (rawFile.type == 'image/jpeg' || rawFile.type == 'image/png') {
-        if (rawFile.size / 1024 / 1024 > 2) {
-
+        if (rawFile.size / 1024 / 1024 < 2) {
+            return true
+        } else {
+            ElMessage({
+                type: 'error',
+                message: '上传文件大小小于4M'
+            })
+            return false
         }
-        return true
     } else {
-
+        ElMessage({
+            type: 'error',
+            message: '上传文件格式务必PNG|JPG'
+        })
         return false
     }
-    return true
+
 }
 
 const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
-
+    //response:即为当前这次上传图片post请求服务器返回的数据
+    //收集上传图片的地址,添加一个新的品牌的时候带给服务器
+    console.log(response)
+    trademarkParams.loginUrl = response.data;
+    //图片上传成功,清除掉对应图片校验结果
+    formRef.value.clearValidate('logoUrl');
 }
 
 onMounted(() => {
     getHasTrademark();
 });
+
+const validatorTmName = (rule: any, value: any, callBack: any) => {
+    if (value.trim().length >= 2) {
+        callBack()
+    } else {
+        callBack(new Error('品牌名称位数大于等于两位'))
+    }
+}
+
+const validatorLogoUrl = (rule: any, value: any, callBack: any) => {
+
+}
+
+
+const rules = {
+    tmName: [
+        { trigger: 'blur', validator: validatorTmName }
+    ],
+    logoUrl: [
+        { validator: validatorLogoUrl }
+    ]
+}
+
+
 </script>
 
 <style scoped>

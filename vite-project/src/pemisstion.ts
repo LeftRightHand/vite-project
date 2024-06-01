@@ -7,7 +7,7 @@ import useUserStore from "./store/modules/user";
 
 import pinia from "./store";
 import setting from "./setting";
-
+NProgress.configure({ showSpinner: false })
 let userStore = useUserStore(pinia);
 let username = userStore.username;
 //全局前置守卫
