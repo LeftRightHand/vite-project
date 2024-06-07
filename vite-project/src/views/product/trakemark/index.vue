@@ -136,7 +136,11 @@ const validatorTmName = (rule: any, value: any, callBack: any) => {
 }
 
 const validatorLogoUrl = (rule: any, value: any, callBack: any) => {
-
+    if (value) {
+        callBack()
+    } else {
+        callBack(new Error('请添加品牌LOGO'))
+    }
 }
 
 
