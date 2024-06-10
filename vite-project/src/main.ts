@@ -13,7 +13,7 @@ import router from './router'
 
 import pinia from "./store";
 
-import components from "./components";
+import components from "@/components";
 
 import './pemisstion';
 

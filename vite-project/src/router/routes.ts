@@ -131,7 +131,7 @@ export const constantRoute = [
             },
             {
                 path: '/product/attr',
-                component: () => import('@/views/product/trakemark/index.vue'),
+                component: () => import('@/views/product/attr/index.vue'),
                 name: "Attr",
                 meta: {
                     title: '属性管理',

@@ -12,7 +12,7 @@
                 </el-table-column>
                 <el-table-column label="品牌操作">
                     <template #="{ row, $index }">
-                        <el-button type="primary" size="small" icon="Edit"></el-button>
+                        <el-button type="primary" size="small" icon="Edit" @click="updateTrademark(row)"></el-button>
                         <el-button type="primary" size="small" icon="Delete"></el-button>
                     </template>
                 </el-table-column>
@@ -47,9 +47,9 @@
 
 <script setup lang="ts">
 import { UploadProps, ElMessage } from 'element-plus';
-import { requestHasTrademark } from '@/api/product/trademark';
+import { requestAddOrUpdateTrademark, requestHasTrademark } from '@/api/product/trademark';
 import { Records, TradeMark } from '@/api/product/trademark/type';
-import { onMounted, reactive, ref } from 'vue';
+import { nextTick, onMounted, reactive, ref } from 'vue';
 //当前页码
 let currentPage = ref<number>(1);
 //每一页多少条
@@ -72,8 +72,22 @@ const cancel = () => {
     dialogVisible.value = false;
 }
 
-const confirm = () => {
-    
+const updateTrademark = (row: TradeMark) => {
+    dialogVisible.value = true
+}
+
+const confirm = async () => {
+    await formRef.value.validate();
+    let result: any = await requestAddOrUpdateTrademark(trademarkParams);
+    if (result.code == 200) {
+        dialogVisible.value = false;
+    } else {
+        ElMessage({
+            type: 'error',
+            message: trademarkParams.id ? '修改失败' : '添加成功'
+        })
+        dialogVisible.value = false;
+    }
 }
 
 const getHasTrademark = async (pager = 1) => {
@@ -91,6 +105,13 @@ const sizeChanage = () => {
 
 const addTrademark = () => {
     dialogVisible.value = !dialogVisible.value
+    trademarkParams.id = 0
+    trademarkParams.loginUrl = ''
+    trademarkParams.tmName = ''
+    nextTick(() => {
+        formRef.value.clearValidate('tmName')
+        formRef.value.clearValidate('logoUrl')
+    })
 }
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {

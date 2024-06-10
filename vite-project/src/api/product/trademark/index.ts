@@ -1,5 +1,7 @@
 import request from "@/utils/request";
 import { TradeMark, TradeMarkResponseData } from "./type";
+import { FOCUS_AFTER_RELEASED } from "element-plus/es/components/focus-trap/index.mjs";
+import { id } from "element-plus/es/locales.mjs";
 
 enum API {
       //获取已有品牌接口
@@ -26,4 +28,7 @@ export const requestAddOrUpdateTrademark = (data: TradeMark) => {
             return request.post<any, any>(API.ADDTRADEMARK_URL, data)
       }
 }
+//删除某一个已有的品牌
+export const requestDeleteTrademark = () => request.delete<any, any>(API.DELETE_URL + id)
+
 
