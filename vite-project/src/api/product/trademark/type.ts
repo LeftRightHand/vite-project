@@ -7,7 +7,7 @@ export interface ResponseData {
 export interface TradeMark {
     id?: number,
     tmName: string,
-    loginUrl: string
+    logoUrl: string
 }
 
 export type Records = TradeMark[];

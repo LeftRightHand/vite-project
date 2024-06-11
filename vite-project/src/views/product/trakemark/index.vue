@@ -13,7 +13,11 @@
                 <el-table-column label="品牌操作">
                     <template #="{ row, $index }">
                         <el-button type="primary" size="small" icon="Edit" @click="updateTrademark(row)"></el-button>
-                        <el-button type="primary" size="small" icon="Delete"></el-button>
+                        <el-popconfirm :title="`您确定要删除${row.tmName}?`" icon="Delete">
+                            <template #reference>
+                                <el-button type="primary" size="small" icon="Delete"></el-button>
+                            </template>
+                        </el-popconfirm>
                     </template>
                 </el-table-column>
             </el-table>
@@ -30,7 +34,7 @@
                 <el-form-item label="品牌图标" prop="logoUrl">
                     <el-upload class="avatar-uploader" action="/api/admin/product/fileUpload" :show-file-list="false"
                         :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-                        <img v-if="trademarkParams.loginUrl" :src="trademarkParams.loginUrl" class="avatar" />
+                        <img v-if="trademarkParams.logoUrl" :src="trademarkParams.logoUrl" class="avatar" />
                         <el-icon v-else class="avatar-uploader-icon">
                             <Plus />
                         </el-icon>
@@ -63,7 +67,7 @@ let trademarkArray = ref<Records>([]);
 
 let trademarkParams = reactive<TradeMark>({
     tmName: '',
-    loginUrl: ''
+    logoUrl: ''
 })
 
 let formRef = ref();
@@ -81,6 +85,7 @@ const confirm = async () => {
     let result: any = await requestAddOrUpdateTrademark(trademarkParams);
     if (result.code == 200) {
         dialogVisible.value = false;
+        getHasTrademark(trademarkParams.id ? currentPage.value : 1)
     } else {
         ElMessage({
             type: 'error',
@@ -106,7 +111,7 @@ const sizeChanage = () => {
 const addTrademark = () => {
     dialogVisible.value = !dialogVisible.value
     trademarkParams.id = 0
-    trademarkParams.loginUrl = ''
+    trademarkParams.logoUrl = ''
     trademarkParams.tmName = ''
     nextTick(() => {
         formRef.value.clearValidate('tmName')
@@ -138,8 +143,7 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
     //response:即为当前这次上传图片post请求服务器返回的数据
     //收集上传图片的地址,添加一个新的品牌的时候带给服务器
-    console.log(response)
-    trademarkParams.loginUrl = response.data;
+    trademarkParams.logoUrl = response.data;
     //图片上传成功,清除掉对应图片校验结果
     formRef.value.clearValidate('logoUrl');
 }
@@ -170,7 +174,7 @@ const rules = {
         { trigger: 'blur', validator: validatorTmName }
     ],
     logoUrl: [
-        { validator: validatorLogoUrl }
+        { required: true, validator: validatorLogoUrl }
     ]
 }
 
